@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "student")
@@ -35,7 +35,7 @@ public class Student {
     // Date = DATETIME in spring/DB
     @Past(message = "Date must be in the past!")
     @JsonFormat(pattern="dd-MM-yyyy")
-    Date dateOfBirth;
+    LocalDateTime dateOfBirth;
 
     public Long getId() {
         return id;
@@ -77,11 +77,11 @@ public class Student {
         this.email = email;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDateTime getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }

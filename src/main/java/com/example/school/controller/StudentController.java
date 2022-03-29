@@ -18,11 +18,11 @@ import java.util.List;
 @RestController
 public class StudentController {
     @Autowired
-    StudentRepository respo;
+    StudentRepository repo;
 
     @GetMapping("/students")
     public ResponseEntity<Object> getStudents() {
-        List<Student> students = respo.findAll();
+        List<Student> students = repo.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
@@ -37,7 +37,7 @@ public class StudentController {
             return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
 
-        respo.save(student);
+        repo.save(student);
         return new ResponseEntity<>("Student created", HttpStatus.CREATED);
     }
 }

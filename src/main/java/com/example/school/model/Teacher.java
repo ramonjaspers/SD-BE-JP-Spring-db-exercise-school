@@ -1,13 +1,10 @@
 package com.example.school.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "teacher")
@@ -16,19 +13,20 @@ public class Teacher {
     @GeneratedValue
     Long id;
 
-    @NotEmpty
-    @Size(min = 2, max = 128)
     String firstName;
 
-    @NotEmpty
-    @Size(min = 2, max = 128)
     String lastName;
 
-    @Email
     String email;
 
-    @Max(value = 10000, message = "THERE IS AN ATTEMPT OF FRAUD")
     int salary;
+
+    LocalDateTime timeStamp;
+
+    // Add json ignore to prevent infinite loop in results
+    @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
+    List<Course> courses;
 
     public Long getId() {
         return id;
@@ -69,4 +67,21 @@ public class Teacher {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public LocalDateTime getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(LocalDateTime timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void getCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
 }
